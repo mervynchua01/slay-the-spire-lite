@@ -1,11 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Munchkin Lite</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <h1>Munchkin Lite Solo</h1>
+
+    <header class="game-header">
+      <div class="player-stats">
+        <div class="stats">
+          <span class="stats-label">Health:</span>
+          <span class="stats-value" id="health-display">-</span>
+        </div>
+        <div class="stats">
+          <span class="stats-label">Level:</span>
+          <span class="stats-value" id="level-display">-</span>
+        </div>
+        <div class="stats">
+          <span class="stats-label">Weapon:</span>
+          <span class="stats-value" id="weapon-display">-</span>
+        </div>
+      </div>
+    </header>
+    <main class="game-area">
+      <button id="flip-button">Flip Card</button>
+      <div id="card-display"></div>
+      <div id="action-buttons"></div>
+    </main>
+    <script src="js/app.js"></script>
+  </body>
 </html>

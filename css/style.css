@@ -1,0 +1,28 @@
+/* Basic reset and layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Header styling */
+.game-header {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.player-stats {
+  display: flex;
+  gap: 30px;
+}
+
+.stats-label {
+  font-weight: bold;
+  margin-right: 5px;
+}
