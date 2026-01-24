@@ -14,7 +14,8 @@ const weapons = [
 
 let playerLevel = 1;
 let playerHealth = 3;
-let playerWeapon = { name: "Rusty Dagger", dice: 4, count: 1 }; // remove the : after playerWeapon
+let energy = 3;
+let playerWeapon = { name: "Rusty Dagger", dice: 4, count: 1 };
 let currentMonster = null;
 
 /*------------------------ Cached Element References ------------------------*/
@@ -37,6 +38,7 @@ function updateDisplay() {
 }
 
 function flipCard() {
+  flipButton.style.display = "none";
   let cardType;
   if (Math.random() < 0.7) {
     cardType = "monster";
@@ -56,7 +58,6 @@ function flipCard() {
 function showMonster() {
   const monster = generateMonster();
   currentMonster = monster;
-  flipButton.disabled = true;
   cardDisplay.textContent = `A monster appears! Power: ${monster.power}`;
   actionButtons.innerHTML = `
   <button id = "fight-button">Fight (roll dice)</button>
@@ -82,22 +83,24 @@ function fight() {
     playerLevel++;
     cardDisplay.textContent = `Victory! You rolled ${diceRoll} and defeated the monster. You gain a level!`;
     checkWin();
+    flipButton.style.display = "block";
   } else {
     playerHealth--;
     cardDisplay.textContent = `Defeated! You rolled ${diceRoll}. You lost a health!`;
     checkLose();
+    flipButton.style.display = "block";
   }
 
   updateDisplay();
   currentMonster = null;
-  flipButton.disabled = false;
+  flipButton.style.display = "block";
 }
 
 function flee() {
   actionButtons.innerHTML = "";
   cardDisplay.textContent = `You managed to fled from the monster safely. Nothing Happens`;
   currentMonster = null;
-  flipButton.disabled = false;
+  flipButton.style.display = "block";
 }
 
 function generateMonster() {
@@ -131,15 +134,15 @@ function generateMonster() {
 /*-------------------------------- Treasure Functions --------------------------------*/
 
 function showTreasure() {
-  flipButton.disabled = true;
   cardDisplay.textContent = `A treasure appears, it may be good or bad, we won't know!`;
   actionButtons.innerHTML = `
   <button id = "open-button">Open</button>
   <button id = "ignore-button">Ignore</button>
   `;
   document.querySelector("#open-button").addEventListener("click", openChest);
-  document.querySelector("#exit-button").addEventListener("click", ignoreChest);
-  console.log(`A monster appeared Power: ${monster.power}`);
+  document
+    .querySelector("#ignore-button")
+    .addEventListener("click", ignoreChest);
 }
 
 function openChest() {
@@ -171,19 +174,20 @@ function showWeaponChoice(newWeapon) {
     updateDisplay();
     cardDisplay.textContent = `Equipped ${newWeapon.name}!`;
     actionButtons.innerHTML = "";
-    flipButton.disabled = false;
+    flipButton.style.display = "block";
   });
 
   document.querySelector("#keep-btn").addEventListener("click", () => {
     cardDisplay.textContent = `Kept your ${playerWeapon.name}.`;
     actionButtons.innerHTML = "";
+    flipButton.style.display = "block";
   });
 }
 
 function ignoreChest() {
   cardDisplay.textContent = `You ignored the treasure chest. Nothing happens.`;
   actionButtons.innerHTML = ``;
-  flipButton.disabled = false;
+  flipButton.style.display = "block";
 }
 
 function handleGoodEffect() {
@@ -193,11 +197,13 @@ function handleGoodEffect() {
     // Health potion
     playerHealth++;
     cardDisplay.textContent = "Health Potion! Gained 1 health.";
+    flipButton.style.display = "block";
   } else {
     // Level up potion
     playerLevel++;
     cardDisplay.textContent = "Experience Potion! Gained 1 level.";
     checkWin();
+    flipButton.style.display = "block";
   }
 
   updateDisplay();
@@ -215,12 +221,15 @@ function handleTrap() {
     if (playerLevel > 1) {
       playerLevel--;
       cardDisplay.textContent = "Curse! Lost 1 level.";
+      flipButton.style.display = "block";
     } else {
       cardDisplay.textContent = "Curse! But you're already level 1.";
+      flipButton.style.display = "block";
     }
   } else {
     playerWeapon = { name: "Rusty Dagger", dice: 4, count: 1 };
     cardDisplay.textContent = "🔨 Your weapon broke! Back to Rusty Dagger.";
+    flipButton.style.display = "block";
   }
 
   updateDisplay();
@@ -230,15 +239,38 @@ function handleTrap() {
 function checkWin() {
   if (playerLevel >= winLevel) {
     cardDisplay.textContent = `YOU WIN! Reached level ${winLevel}!`;
-    flipButton.disabled = true;
+    flipButton.style.display = "none";
+    actionButtons.innerHTML = `
+      <button id = "restart-button">Play again</button>
+      `;
+    document
+      .querySelector("#restart-button")
+      .addEventListener("click", restart);
   }
 }
 
 function checkLose() {
   if (playerHealth <= 0) {
     cardDisplay.textContent = `GAME OVER! You lost all your health.`;
-    flipButton.disabled = true;
+    flipButton.style.display = "none";
+    actionButtons.innerHTML = `
+      <button id = "restart-button">Play again</button>
+      `;
+    document
+      .querySelector("#restart-button")
+      .addEventListener("click", restart);
   }
+}
+
+function restart() {
+  playerHealth = 3;
+  playerLevel = 1;
+  playerWeapon = { name: "Rusty Dagger", dice: 4, count: 1 };
+  cardDisplay.textContent = "";
+  actionButtons.innerHTML = "";
+  flipButton.style.display = "block";
+
+  updateDisplay();
 }
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -246,3 +278,15 @@ flipButton.addEventListener("click", flipCard);
 
 /*-------------------------------- Initialize --------------------------------*/
 init();
+
+// more choices to fight the monster?
+// maybe shuffle more cards in the deck?
+// boss?
+// more events or choices involved?
+// unlocking certain cards?, event will add subsequent event card?
+// if this card comes before hand, it benefits the user
+// each card is a unique event
+
+// slay the spire? attack acards 3 times?
+// choose between 3 actions
+// 3 turns, can use cards
