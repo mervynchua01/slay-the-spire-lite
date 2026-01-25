@@ -3,33 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Munchkin Lite</title>
+    <title>Slay the Spire Lite</title>
     <link rel="stylesheet" href="css/style.css" />
+    <script type="module" src="js/main.js"></script>
   </head>
-  <body>
-    <h1>Munchkin Lite Solo</h1>
 
-    <header class="game-header">
-      <div class="player-stats">
-        <div class="stats">
-          <span class="stats-label">Health:</span>
-          <span class="stats-value" id="health-display">-</span>
+  <body>
+    <div id="app">
+      <div id="combat-screen" class="screen">
+
+        <header class="game-header">
+          <div class="header-stats">
+            <span id="player-name">Player Name</span>
+            <span class="stats-label">Level:</span>
+            <span class="stats-value" id="player-level">1</span>
+          </div>
+          <span id="monster-name">Monster Name</span>
+          <button id="btn-abandon">Abandon Run</button>
+        </header>
+
+        <main class="battle-area">
+          <section class="player-section">
+            <div class="sprite" id="player-sprite">🧙</div>
+            <div class="player-stats-row">
+              <div class="block-value" id="player-block">🛡️ 0</div>
+              <div class="health-bar" id="player-health">3/3</div>
+            </div>
+          </section>
+
+          <section class="monster-section">
+            <div class="intent" id="monster-intent">🗡️ 6</div>
+            <div class="sprite" id="monster-sprite">👹</div>
+            <div class="health-bar" id="monster-health">20/20</div>
+          </section>
+        </main>
+
+        <footer class="battle-footer">
+          <div class="energy-value" id="player-energy">⚡ 3/3</div>
+          <div class="hand" id="hand"></div>
+          <button id="btn-end-turn">End Turn</button>
+        </footer>
+
+        <div class="card-piles">
+          <div class="pile" id="draw-pile">Draw: 10</div>
+          <div class="pile" id="discard-pile">Discard: 0</div>
         </div>
-        <div class="stats">
-          <span class="stats-label">Level:</span>
-          <span class="stats-value" id="level-display">-</span>
-        </div>
-        <div class="stats">
-          <span class="stats-label">Weapon:</span>
-          <span class="stats-value" id="weapon-display">-</span>
-        </div>
+
       </div>
-    </header>
-    <main class="game-area">
-      <button id="flip-button">Flip Card</button>
-      <div id="card-display"></div>
-      <div id="action-buttons"></div>
-    </main>
-    <script src="js/app.js"></script>
+    </div>
   </body>
 </html>
