@@ -6,40 +6,16 @@ import { state, shuffleArray } from "./state.js";
 const ADDITIONAL_CARDS = {
   status: [
     {
-      id: 'slimed',
-      name: 'Slimed',
+      id: 'debuff',
+      name: 'Debuff',
       cost: 1,
       type: 'status',
       damage: 0,
       block: 0,
       draw: 0,
       hpChange: 0,
-      exhaust: true, // It removes itself when played
+      exhaust: true,
       description: 'Cost 1: Exhaust.'
-    },
-    {
-      id: 'dazed',
-      name: 'Dazed',
-      cost: 999, 
-      type: 'status',
-      damage: 0,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      ethereal: true, // Deletes itself if left in hand
-      description: 'Unplayable. Ethereal.'
-    },
-    {
-      id: 'burn',
-      name: 'Burn',
-      cost: 999,
-      type: 'status',
-      damage: 0,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      endTurnDamage: 2, // New key for your turn-end logic
-      description: 'Unplayable. At the end of your turn, take 2 damage.'
     }
   ],
   common: [
@@ -64,18 +40,6 @@ const ADDITIONAL_CARDS = {
       draw: 1,
       hpChange: 0,
       description: 'Gain 5 Block. Draw 1 card.'
-    },
-    {
-      id: 'body_slam',
-      name: 'Body Slam',
-      cost: 1,
-      type: 'attack',
-      damage: 0,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      specialEffect: 'damage_equals_block',
-      description: 'Deal damage equal to your current Block.'
     },
     {
       id: 'clothesline',
@@ -370,42 +334,6 @@ const ADDITIONAL_CARDS = {
       description: 'Deal 32 damage.'
     },
     {
-      id: 'brutality',
-      name: 'Brutality',
-      cost: 0,
-      type: 'power',
-      damage: 0,
-      block: 0,
-      draw: 1,
-      hpChange: -1,
-      specialEffect: 'start_of_turn',
-      description: 'At the start of your turn, lose 1 HP and draw 1 card.'
-    },
-    {
-      id: 'feed',
-      name: 'Feed',
-      cost: 1,
-      type: 'attack',
-      damage: 10,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      specialEffect: 'gain_max_hp_3_on_kill',
-      description: 'Deal 10 damage. If this kills an enemy, raise your Max HP by 3.'
-    },
-    {
-      id: 'fiend_fire',
-      name: 'Fiend Fire',
-      cost: 2,
-      type: 'attack',
-      damage: 7,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      specialEffect: 'damage_per_card_in_hand',
-      description: 'Deal 7 damage for each card in your hand.'
-    },
-    {
       id: 'immolate',
       name: 'Immolate',
       cost: 2,
@@ -437,30 +365,16 @@ const ADDITIONAL_CARDS = {
       draw: 3,
       hpChange: -6,
       description: 'Lose 6 HP. Draw 3 cards.'
-    },
-    {
-      id: 'reaper',
-      name: 'Reaper',
-      cost: 2,
-      type: 'attack',
-      damage: 4,
-      block: 0,
-      draw: 0,
-      hpChange: 0,
-      specialEffect: 'heal_for_damage_dealt',
-      description: 'Deal 4 damage. Heal HP equal to damage dealt.'
     }
   ]
 };
 
-// Flat lookup: cardId -> cardData
 const CARD_LOOKUP = {};
 [...ADDITIONAL_CARDS.common, ...ADDITIONAL_CARDS.uncommon, ...ADDITIONAL_CARDS.rare, ...ADDITIONAL_CARDS.status].forEach(card => {
   CARD_LOOKUP[card.id] = card;
 });
 
 
-// Additional card rewards
 function generateCardReward() {
   const rewards = [];
 
@@ -508,16 +422,13 @@ function playCard(handIndex, target = state.monster) {
   const cardId = state.hand[handIndex];
   const cardData = CARD_LOOKUP[cardId];
 
-  // Check energy
   if (state.player.currentEnergy < cardData.cost) {
     console.log(`Not enough energy to play ${cardData.name}`);
     return false;
   }
 
-  // Deduct energy
   state.player.currentEnergy -= cardData.cost;
 
-  // Apply card effects from data
   if (cardData.damage > 0) {
     const blocked = Math.min(target.block || 0, cardData.damage);
     const actualDamage = cardData.damage - blocked;
@@ -542,9 +453,13 @@ function playCard(handIndex, target = state.monster) {
     state.player.currentHealth += cardData.hpChange;
   }
 
-  // Move card from hand to discard
   state.hand.splice(handIndex, 1);
-  state.discardPile.push(cardId);
+  if (cardData.exhaust) {
+    state.exhaustPile.push(cardId);
+    console.log(`Exhausted ${cardData.name}`);
+  } else {
+    state.discardPile.push(cardId);
+  }
 
   console.log(`Played ${cardData.name} (cost: ${cardData.cost})`);
   return true;

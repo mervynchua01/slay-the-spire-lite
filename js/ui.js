@@ -19,7 +19,6 @@ function formatIntent(intent) {
 
   const icon = intent.intentIcon || "❓";
 
-  // Format based on intent type
   switch (intent.type) {
     case "attack":
       return `${icon} ${intent.name}: ${intent.value}`;
@@ -83,7 +82,6 @@ function renderMonsterStats() {
 
   monsterIntentEl.textContent = formatIntent(state.monster.currentIntent);
 
-  // Display monster block if > 0
   if (state.monster.block > 0) {
     monsterBlockEl.innerHTML = `<img src="assets/Icon_Block.png" alt="Block" style="width: 16px; height: 16px; vertical-align: middle;"> ${state.monster.block}`;
     monsterBlockEl.style.display = "block";
@@ -104,7 +102,6 @@ function renderHand() {
     cardEl.dataset.index = index;
     cardEl.dataset.type = cardData.type;
 
-    // Add status card class for special styling
     if (cardData.type === "status") {
       cardEl.classList.add("status-card");
     }
@@ -113,7 +110,6 @@ function renderHand() {
       <div class="card-cost">${cardData.cost}</div>
       <div class="card-name">${cardData.name}</div>
       <div class="card-art">${getCardIcon(cardId)}</div>
-      <div class="card-type">${cardData.type}</div>
       <div class="card-description">${cardData.description}</div>
     `;
 
@@ -137,7 +133,6 @@ function renderPhaseOverlay() {
   const subtitle = document.querySelector("#phase-subtitle");
   const button = document.querySelector("#btn-phase-action");
 
-  // Reset button classes
   button.className = "phase-button";
 
   switch (state.gamePhase) {
@@ -200,7 +195,6 @@ function renderVictoryOverlay() {
       <div class="card-cost">${cardData.cost}</div>
       <div class="card-name">${cardData.name}</div>
       <div class="card-art">${getCardIcon(cardData.id)}</div>
-      <div class="card-type">${cardData.type}</div>
       <div class="card-description">${cardData.description}</div>
     `;
     cardsRewardRow.appendChild(cardDiv);

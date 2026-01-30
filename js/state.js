@@ -33,11 +33,14 @@ const state = {
     block: 0,
   },
   monster: null,
-  drawPile: [...STARTER_DECK],
+  /** Current run's deck (starter + rewards). Reset to STARTER_DECK copy on new run. */
+  playerDeck: [...STARTER_DECK],
+  drawPile: [],
   hand: [],
   discardPile: [],
+  exhaustPile: [],
   currentTurn: "player",
-  gamePhase: "combat", // 'combat', 'victory', 'defeat', 'gameWon'
+  gamePhase: "combat",
   monsterJustTookDamage: false,
   monsterDamageAmount: 0,
   playerJustTookDamage: false,
@@ -45,8 +48,7 @@ const state = {
 };
 
 /* ---------------------------UTILITY FUNCTIONS ---------------------------*/
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+function shuffleArray(array) {  for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
@@ -55,17 +57,15 @@ function shuffleArray(array) {
 
 /* ---------------------------RESET FUNCTIONS ---------------------------*/
 
-// Helper function to reset deck state
 function resetDeck() {
-  state.drawPile = [...STARTER_DECK];
+  state.drawPile = [...state.playerDeck];
   shuffleArray(state.drawPile);
   state.hand = [];
   state.discardPile = [];
+  state.exhaustPile = [];
 }
 
-// Full game reset (abandon run, defeat, game won)
 function resetGame() {
-  // Reset player to starting state
   state.player.level = 1;
   state.player.currentHealth = STARTING_HEALTH;
   state.player.maxHealth = STARTING_MAX_HEALTH;
@@ -73,25 +73,20 @@ function resetGame() {
   state.player.maxEnergy = STARTING_ENERGY;
   state.player.block = 0;
 
-  // Clear game state
   state.monster = null;
   state.currentTurn = "player";
   state.gamePhase = "combat";
 
-  // Reset deck
+  state.playerDeck = [...STARTER_DECK];
   resetDeck();
 }
 
-// New encounter setup (victory -> next monster)
 function resetCombat(monster) {
   state.monster = monster;
   state.gamePhase = "combat";
   state.currentTurn = "player";
 
-  // Reset deck for new encounter
   resetDeck();
-
-  // Note: block and energy reset happens in startPlayerTurn()
 }
 
 /* ---------------------------EXPORTS ---------------------------*/

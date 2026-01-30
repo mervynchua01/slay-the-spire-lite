@@ -266,11 +266,22 @@ body {
   opacity: 0.8;
 }
 
+/* ---------------------------CARD PILES ---------------------------*/
+#draw-pile {
+  border-color: rgba(74, 144, 217, 0.6);
+  color: #ffffff;
+}
+
+#discard-pile {
+  border-color: rgba(233, 69, 96, 0.5);
+  color: #fca5a5;
+}
+
 /* ---------------------------CARD STYLES ---------------------------*/
 
 .card {
-  width: 120px;
-  height: 180px;
+  width: 180px;
+  height: 233px;
   border-radius: 8px;
   cursor: pointer;
   text-align: center;
@@ -315,7 +326,8 @@ body {
 
 .card-art {
   flex: 1;
-  margin: 12px 8px 4px 8px;
+  max-height: 120px;
+  margin: 8px 10px 6px 10px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   display: flex;
@@ -328,32 +340,23 @@ body {
 .card-name {
   background-color: rgba(0, 0, 0, 0.6);
   color: #ffeaa7;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: bold;
-  padding: 4px 6px;
+  padding: 5px 6px;
   margin: 0 6px;
   border-radius: 3px;
 }
 
 .card-description {
-  font-size: 0.7rem;
+  font-size: 1rem;
+  margin-top: 12px;
   color: #ecf0f1;
   font-weight: normal;
   line-height: 1.2;
-  padding: 4px 8px;
+  padding: 6px 8px;
   flex-shrink: 0;
 }
 
-/* Card type label at bottom */
-.card-type {
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #bdc3c7;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px;
-  border-radius: 0 0 5px 5px;
-}
 
 /* Hover effect - lift card up */
 .card:hover {

@@ -5,9 +5,8 @@ import { drawCards, discardHand } from "./cards.js";
 
 /* ---------------------------MONSTER DATA ---------------------------*/
 const MONSTER_DATA = {
-  // ===== SLIMES =====
   acid_slime_large: {
-    sprite: "",
+    sprite: "🟢",
     name: "Acid Slime (L)",
     health: 65,
     maxHealth: 65,
@@ -15,7 +14,7 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Corrosive Spit",
-        chance: 0.3,
+        chance: 0.43,
         value: 7,
         type: "attack",
         intentIcon: "🤢",
@@ -25,27 +24,17 @@ const MONSTER_DATA = {
       },
       {
         name: "Tackle",
-        chance: 0.4,
+        chance: 0.57,
         value: 16,
         type: "attack",
         intentIcon: "⚔️",
         description: "Deals 16 damage",
       },
-      {
-        name: "Lick",
-        chance: 0.3,
-        value: 0,
-        type: "debuff",
-        intentIcon: "👅",
-        debuff: "frail",
-        debuffAmount: 2,
-        description: "Applies 2 Frail",
-      },
     ],
   },
 
   acid_slime_medium: {
-    sprite: "",
+    sprite: "🟢",
     name: "Acid Slime (M)",
     health: 28,
     maxHealth: 28,
@@ -53,7 +42,7 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Corrosive Spit",
-        chance: 0.4,
+        chance: 0.5,
         value: 7,
         type: "attack",
         intentIcon: "🤢",
@@ -63,27 +52,17 @@ const MONSTER_DATA = {
       },
       {
         name: "Tackle",
-        chance: 0.4,
+        chance: 0.5,
         value: 10,
         type: "attack",
         intentIcon: "⚔️",
         description: "Deals 10 damage",
       },
-      {
-        name: "Lick",
-        chance: 0.2,
-        value: 0,
-        type: "debuff",
-        intentIcon: "👅",
-        debuff: "frail",
-        debuffAmount: 1,
-        description: "Applies 1 Frail",
-      },
     ],
   },
 
   acid_slime_small: {
-    sprite: "",
+    sprite: "🟢",
     name: "Acid Slime (S)",
     health: 8,
     maxHealth: 8,
@@ -109,27 +88,17 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Flame Tackle",
-        chance: 0.3,
+        chance: 0.5,
         value: 16,
         type: "attack",
         intentIcon: "🔥",
-        addCard: "slimed",
+        addCard: "debuff",
         addCardAmount: 2,
-        description: "Deals 16 damage and adds 2 Slimed",
-      },
-      {
-        name: "Lick",
-        chance: 0.4,
-        value: 0,
-        type: "debuff",
-        intentIcon: "👅",
-        debuff: "frail",
-        debuffAmount: 2,
-        description: "Applies 2 Frail",
+        description: "Deals 16 damage and adds 2 Debuff",
       },
       {
         name: "Tackle",
-        chance: 0.3,
+        chance: 0.5,
         value: 16,
         type: "attack",
         intentIcon: "⚔️",
@@ -139,7 +108,7 @@ const MONSTER_DATA = {
   },
 
   spike_slime_medium: {
-    sprite: "",
+    sprite: "🦠",
     name: "Spike Slime (M)",
     health: 28,
     maxHealth: 28,
@@ -147,27 +116,17 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Flame Tackle",
-        chance: 0.3,
+        chance: 0.5,
         value: 8,
         type: "attack",
         intentIcon: "🔥",
-        addCard: "slimed",
+        addCard: "debuff",
         addCardAmount: 1,
-        description: "Deals 8 damage and adds 1 Slimed",
-      },
-      {
-        name: "Lick",
-        chance: 0.4,
-        value: 0,
-        type: "debuff",
-        intentIcon: "👅",
-        debuff: "frail",
-        debuffAmount: 1,
-        description: "Applies 1 Frail",
+        description: "Deals 8 damage and adds 1 Debuff",
       },
       {
         name: "Tackle",
-        chance: 0.3,
+        chance: 0.5,
         value: 10,
         type: "attack",
         intentIcon: "⚔️",
@@ -177,7 +136,7 @@ const MONSTER_DATA = {
   },
 
   spike_slime_small: {
-    sprite: "",
+    sprite: "🦠",
     name: "Spike Slime (S)",
     health: 10,
     maxHealth: 10,
@@ -194,9 +153,8 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== LOUSES =====
   red_louse: {
-    sprite: "",
+    sprite: "🐛",
     name: "Red Louse",
     health: 10,
     maxHealth: 10,
@@ -204,27 +162,17 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Bite",
-        chance: 0.75,
+        chance: 1.0,
         value: 5,
         type: "attack",
         intentIcon: "⚔️",
         description: "Deals 5 damage",
       },
-      {
-        name: "Grow",
-        chance: 0.25,
-        value: 0,
-        type: "buff",
-        intentIcon: "💪",
-        buffType: "strength",
-        buffAmount: 3,
-        description: "Gains 3 Strength",
-      },
     ],
   },
 
   green_louse: {
-    sprite: "",
+    sprite: "🪲",
     name: "Green Louse",
     health: 11,
     maxHealth: 11,
@@ -232,28 +180,17 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Bite",
-        chance: 0.75,
+        chance: 1.0,
         value: 5,
         type: "attack",
         intentIcon: "⚔️",
         description: "Deals 5 damage",
       },
-      {
-        name: "Spit Web",
-        chance: 0.25,
-        value: 0,
-        type: "debuff",
-        intentIcon: "🕸️",
-        debuff: "weak",
-        debuffAmount: 2,
-        description: "Applies 2 Weak",
-      },
     ],
   },
 
-  // ===== JAW WORM =====
   jaw_worm: {
-    sprite: "",
+    sprite: "🪱",
     name: "Jaw Worm",
     health: 44,
     maxHealth: 44,
@@ -290,27 +227,16 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== CULTIST =====
   cultist: {
-    sprite: "",
+    sprite: "🧙",
     name: "Cultist",
     health: 48,
     maxHealth: 48,
     block: 0,
     moveset: [
       {
-        name: "Incantation",
-        chance: 0.25,
-        value: 0,
-        type: "buff",
-        intentIcon: "✨",
-        buffType: "ritual",
-        buffAmount: 3,
-        description: "Gains 3 Ritual",
-      },
-      {
         name: "Dark Strike",
-        chance: 0.75,
+        chance: 1.0,
         value: 6,
         type: "attack",
         intentIcon: "⚔️",
@@ -319,9 +245,8 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== GREMLINS =====
   fat_gremlin: {
-    sprite: "",
+    sprite: "👺",
     name: "Fat Gremlin",
     health: 13,
     maxHealth: 13,
@@ -341,7 +266,7 @@ const MONSTER_DATA = {
   },
 
   mad_gremlin: {
-    sprite: "",
+    sprite: "😤",
     name: "Mad Gremlin",
     health: 20,
     maxHealth: 20,
@@ -359,7 +284,7 @@ const MONSTER_DATA = {
   },
 
   shield_gremlin: {
-    sprite: "",
+    sprite: "🛡️",
     name: "Shield Gremlin",
     health: 12,
     maxHealth: 12,
@@ -386,7 +311,7 @@ const MONSTER_DATA = {
   },
 
   sneaky_gremlin: {
-    sprite: "",
+    sprite: "🥷",
     name: "Sneaky Gremlin",
     health: 10,
     maxHealth: 10,
@@ -404,23 +329,15 @@ const MONSTER_DATA = {
   },
 
   gremlin_wizard: {
-    sprite: "",
+    sprite: "🔮",
     name: "Gremlin Wizard",
     health: 23,
     maxHealth: 23,
     block: 0,
     moveset: [
       {
-        name: "Charging",
-        chance: 0.6,
-        value: 0,
-        type: "buff",
-        intentIcon: "🔮",
-        description: "Charging up power",
-      },
-      {
         name: "Ultimate Blast",
-        chance: 0.4,
+        chance: 1.0,
         value: 25,
         type: "attack",
         intentIcon: "💥",
@@ -429,9 +346,8 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== SLAVERS =====
   blue_slaver: {
-    sprite: "",
+    sprite: "🧑",
     name: "Blue Slaver",
     health: 46,
     maxHealth: 46,
@@ -459,7 +375,7 @@ const MONSTER_DATA = {
   },
 
   red_slaver: {
-    sprite: "",
+    sprite: "🧑",
     name: "Red Slaver",
     health: 46,
     maxHealth: 46,
@@ -486,9 +402,8 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== FUNGI BEAST =====
   fungi_beast: {
-    sprite: "",
+    sprite: "🍄",
     name: "Fungi Beast",
     health: 22,
     maxHealth: 22,
@@ -496,28 +411,17 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Bite",
-        chance: 0.6,
+        chance: 1.0,
         value: 6,
         type: "attack",
         intentIcon: "⚔️",
         description: "Deals 6 damage",
       },
-      {
-        name: "Grow",
-        chance: 0.4,
-        value: 0,
-        type: "buff",
-        intentIcon: "💪",
-        buffType: "strength",
-        buffAmount: 3,
-        description: "Gains 3 Strength",
-      },
     ],
   },
 
-  // ===== LOOTER =====
   looter: {
-    sprite: "",
+    sprite: "🏴‍☠️",
     name: "Looter",
     health: 44,
     maxHealth: 44,
@@ -525,7 +429,7 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Mug",
-        chance: 0.55,
+        chance: 0.69,
         value: 10,
         type: "attack",
         intentIcon: "⚔️",
@@ -533,26 +437,17 @@ const MONSTER_DATA = {
       },
       {
         name: "Lunge",
-        chance: 0.25,
+        chance: 0.31,
         value: 12,
         type: "attack",
         intentIcon: "⚠️",
         description: "Deals 12 damage",
       },
-      {
-        name: "Smoke Bomb",
-        chance: 0.2,
-        value: 0,
-        type: "special",
-        intentIcon: "💨",
-        description: "Escapes from battle",
-      },
     ],
   },
 
-  // ===== ELITES =====
   gremlin_nob: {
-    sprite: "",
+    sprite: "👹",
     name: "Gremlin Nob",
     health: 82,
     maxHealth: 82,
@@ -592,7 +487,7 @@ const MONSTER_DATA = {
   },
 
   lagavulin: {
-    sprite: "",
+    sprite: "😴",
     name: "Lagavulin",
     health: 109,
     maxHealth: 109,
@@ -600,26 +495,8 @@ const MONSTER_DATA = {
     elite: true,
     moveset: [
       {
-        name: "Stunned",
-        chance: 0.2,
-        value: 0,
-        type: "special",
-        intentIcon: "💤",
-        description: "Zzz...",
-      },
-      {
-        name: "Siphon Soul",
-        chance: 0.4,
-        value: 0,
-        type: "debuff",
-        intentIcon: "📉",
-        debuff: "dexterity_down",
-        debuffAmount: 1,
-        description: "Reduces Dexterity by 1",
-      },
-      {
         name: "Attack",
-        chance: 0.4,
+        chance: 1.0,
         value: 18,
         type: "attack",
         intentIcon: "⚔️",
@@ -629,7 +506,7 @@ const MONSTER_DATA = {
   },
 
   sentries: {
-    sprite: "",
+    sprite: "🤖",
     name: "Sentry",
     health: 38,
     maxHealth: 38,
@@ -642,7 +519,7 @@ const MONSTER_DATA = {
         value: 9,
         type: "attack",
         intentIcon: "🔥",
-        addCard: "dazed",
+        addCard: "debuff",
         addCardAmount: 1,
         description: "Deals 9 damage and adds 1 Dazed",
       },
@@ -657,9 +534,8 @@ const MONSTER_DATA = {
     ],
   },
 
-  // ===== BOSSES =====
   slime_boss: {
-    sprite: "",
+    sprite: "👾",
     name: "Slime Boss",
     health: 140,
     maxHealth: 140,
@@ -667,16 +543,8 @@ const MONSTER_DATA = {
     boss: true,
     moveset: [
       {
-        name: "Preparing",
-        chance: 0.1,
-        value: 0,
-        type: "buff",
-        intentIcon: "⏳",
-        description: "Preparing...",
-      },
-      {
         name: "Slam",
-        chance: 0.3,
+        chance: 0.5,
         value: 35,
         type: "attack",
         intentIcon: "⚠️",
@@ -684,29 +552,19 @@ const MONSTER_DATA = {
       },
       {
         name: "Corrosive Spit",
-        chance: 0.3,
+        chance: 0.5,
         value: 11,
         type: "attack",
         intentIcon: "🤢",
-        addCard: "slimed",
+        addCard: "debuff",
         addCardAmount: 3,
-        description: "Deals 11 damage and adds 3 Slimed",
-      },
-      {
-        name: "Lick",
-        chance: 0.3,
-        value: 0,
-        type: "debuff",
-        intentIcon: "👅",
-        debuff: "weak",
-        debuffAmount: 2,
-        description: "Applies 2 Weak",
+        description: "Deals 11 damage and adds 3 Debuff",
       },
     ],
   },
 
   hexaghost: {
-    sprite: "",
+    sprite: "👻",
     name: "Hexaghost",
     health: 250,
     maxHealth: 250,
@@ -714,18 +572,8 @@ const MONSTER_DATA = {
     boss: true,
     moveset: [
       {
-        name: "Activate",
-        chance: 0.1,
-        value: 0,
-        type: "buff",
-        intentIcon: "✨",
-        buffType: "strength",
-        buffAmount: 2,
-        description: "Gains 2 Strength",
-      },
-      {
         name: "Divider",
-        chance: 0.15,
+        chance: 0.17,
         value: 35,
         type: "attack",
         intentIcon: "💥",
@@ -733,17 +581,17 @@ const MONSTER_DATA = {
       },
       {
         name: "Sear",
-        chance: 0.3,
+        chance: 0.33,
         value: 6,
         type: "attack",
         intentIcon: "🔥",
-        addCard: "burn",
+        addCard: "debuff",
         addCardAmount: 1,
         description: "Deals 6 damage and adds 1 Burn",
       },
       {
         name: "Tackle",
-        chance: 0.25,
+        chance: 0.28,
         value: 10,
         type: "attack",
         intentIcon: "⚔️",
@@ -751,7 +599,7 @@ const MONSTER_DATA = {
       },
       {
         name: "Inflame",
-        chance: 0.2,
+        chance: 0.22,
         value: 0,
         type: "buff",
         intentIcon: "💪",
@@ -764,7 +612,7 @@ const MONSTER_DATA = {
   },
 
   the_guardian: {
-    sprite: "",
+    sprite: "🗿",
     name: "The Guardian",
     health: 240,
     maxHealth: 240,
@@ -773,7 +621,7 @@ const MONSTER_DATA = {
     moveset: [
       {
         name: "Charging Up",
-        chance: 0.1,
+        chance: 0.12,
         value: 0,
         type: "buff",
         intentIcon: "🛡️",
@@ -782,25 +630,15 @@ const MONSTER_DATA = {
       },
       {
         name: "Fierce Bash",
-        chance: 0.2,
+        chance: 0.23,
         value: 32,
         type: "attack",
         intentIcon: "⚠️",
         description: "Deals 32 damage",
       },
       {
-        name: "Vent Steam",
-        chance: 0.15,
-        value: 0,
-        type: "debuff",
-        intentIcon: "💨",
-        debuff: "weak",
-        debuffAmount: 2,
-        description: "Applies 2 Weak and 2 Vulnerable",
-      },
-      {
         name: "Whirlwind",
-        chance: 0.2,
+        chance: 0.23,
         value: 20,
         type: "attack",
         intentIcon: "💥",
@@ -808,7 +646,7 @@ const MONSTER_DATA = {
       },
       {
         name: "Defensive Mode",
-        chance: 0.15,
+        chance: 0.18,
         value: 0,
         type: "buff",
         intentIcon: "🛡️",
@@ -817,7 +655,7 @@ const MONSTER_DATA = {
       },
       {
         name: "Roll Attack",
-        chance: 0.1,
+        chance: 0.12,
         value: 9,
         type: "attack",
         intentIcon: "⚔️",
@@ -825,7 +663,7 @@ const MONSTER_DATA = {
       },
       {
         name: "Twin Slam",
-        chance: 0.1,
+        chance: 0.12,
         value: 16,
         type: "attack",
         intentIcon: "💢",
@@ -836,8 +674,29 @@ const MONSTER_DATA = {
 };
 
 const ENCOUNTER_POOLS = {
-  easy: ["spike_slime_large", "spike_slime_large"],
-  normal: ["jaw_worm", "cultist", "blue_slaver", "red_slaver", "fungi_beast"],
+  easy: [
+    "acid_slime_large",
+    "acid_slime_medium",
+    "acid_slime_small",
+    "spike_slime_large",
+    "spike_slime_medium",
+    "spike_slime_small",
+    "red_louse",
+    "green_louse",
+    "cultist",
+    "jaw_worm",
+    "fat_gremlin",
+    "mad_gremlin",
+    "shield_gremlin",
+    "sneaky_gremlin",
+    "gremlin_wizard",
+  ],
+  normal: [
+    "blue_slaver",
+    "red_slaver",
+    "fungi_beast",
+    "looter",
+  ],
   elites: ["gremlin_nob", "lagavulin", "sentries"],
   bosses: ["slime_boss", "hexaghost", "the_guardian"],
 };
@@ -871,7 +730,6 @@ function spawnMonster(difficulty) {
     return monster;
   }
 
-// Randomise the intent
 function monsterIntent(monster) {
   const roll = Math.random();
   let cumulativeChance = 0;
@@ -885,7 +743,6 @@ function monsterIntent(monster) {
   }
 }
 
-// Execute the intent, detail down each intent
 function executeIntent(monster) {
   const intent = monster.currentIntent;
 
@@ -917,13 +774,11 @@ function monsterAttack(monster, intent) {
 
   console.log(`${monster.name} attacks for ${damage}! Blocked ${blocked}, took ${actualDamage} damage.`);
 
-  // Handle monster gaining block during attack (e.g., Thrash)
   if (intent.blockGain) {
     monster.block += intent.blockGain;
     console.log(`  ${monster.name} gained ${intent.blockGain} block!`);
   }
 
-  // Handle adding curse cards during attacks (e.g., Flame Tackle, Sear)
   if (intent.addCard) {
     state.discardPile.push(...Array(intent.addCardAmount).fill(intent.addCard));
     console.log(`  Added ${intent.addCardAmount} ${intent.addCard} to discard!`);
@@ -931,7 +786,6 @@ function monsterAttack(monster, intent) {
 }
 
 function applyMonsterDebuff(monster, intent) {
-  // Add curse cards into state.player.discardPile
   if (intent.addCard) {
   for (let i = 0; i < intent.addCardAmount; i++) {
     state.discardPile.push(intent.addCard);
@@ -990,7 +844,6 @@ function endPlayerTurn() {
   monsterTurn();
 }
 
-// Called from cards.js when monster dies
 function handleMonsterDefeated() {
   state.player.level += 1;
   console.log(`Victory! Now level ${state.player.level}`);

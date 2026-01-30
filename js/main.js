@@ -1,6 +1,6 @@
 /* The top of the dependency chain. Initializes the game, sets up event listeners, and coordinates between all modules. Handles user input (card clicks, end turn, abandon run) and triggers appropriate responses.*/
 
-import { state, resetGame, resetCombat, STARTER_DECK } from "./state.js";
+import { state, resetGame, resetCombat } from "./state.js";
 import { playCard } from "./cards.js";
 import {
   getMonsterDifficulty,
@@ -30,10 +30,8 @@ function handleCardClick(event) {
 
   const cardEl = event.target.closest(".card");
 
-  // Get card index from data attribute
   const cardIndex = parseInt(cardEl.dataset.index);
 
-  // Play the card
   const success = playCard(cardIndex);
 
   if (!success) return;
@@ -45,7 +43,6 @@ function handleCardClick(event) {
       state.monsterDamageAmount = 0;
     }
 
-  // Check if monster died from this card
   if (isMonsterDead()) {
     handleMonsterDefeated();
   }
@@ -59,35 +56,38 @@ function handleCardRewardClick(event) {
 
   const selectedCardId = cardEl.dataset.cardId;
 
-  STARTER_DECK.push(selectedCardId);
+  state.playerDeck.push(selectedCardId);
 
-  // Reset combat and continue
+  resetCombat(getMonsterDifficulty(state.player.level));
+  startPlayerTurn();
+  renderGameState();
+}
+
+function handleVictorySkipRewards() {
+  if (state.gamePhase !== "victory") return;
+
   resetCombat(getMonsterDifficulty(state.player.level));
   startPlayerTurn();
   renderGameState();
 }
 
 function handleEndTurn() {
-  // Block input during non-combat phases
   if (state.gamePhase !== "combat") return;
 
-  // Check if it's player's turn
   if (state.currentTurn !== "player") {
     console.log("Not your turn!");
     return;
   }
 
-  // End player turn (this triggers enemy turn automatically)
   endPlayerTurn();
 
     if (state.playerJustTookDamage) {
       triggerSpriteShake("player");
       showDamageNumber("player", state.playerDamageAmount);
       state.playerJustTookDamage = false;
-      state.playerDamageAmount = 0;
-    }
+    state.playerDamageAmount = 0;
+  }
 
-  // Re-render after enemy turn completes
   renderGameState();
 }
 
@@ -127,22 +127,21 @@ function handlePhaseAction() {
 
 /* ---------------------------EVENT LISTENERS ---------------------------*/
 function attachEventListeners() {
-  // Hand container - delegate card clicks
   const handEl = document.querySelector("#hand");
   handEl.addEventListener("click", handleCardClick);
 
   const cardRewardEl = document.querySelector("#cards-reward");
   cardRewardEl.addEventListener("click", handleCardRewardClick);
 
-  // End Turn button
+  const victorySkipBtn = document.querySelector("#btn-victory-action");
+  victorySkipBtn.addEventListener("click", handleVictorySkipRewards);
+
   const endTurnBtn = document.querySelector("#btn-end-turn");
   endTurnBtn.addEventListener("click", handleEndTurn);
 
-  // Abandon Run button
   const abandonBtn = document.querySelector("#btn-abandon");
   abandonBtn.addEventListener("click", handleAbandonRun);
 
-  // Phase action button (Continue, Try Again, Play Again)
   const phaseActionBtn = document.querySelector("#btn-phase-action");
   phaseActionBtn.addEventListener("click", handlePhaseAction);
 
