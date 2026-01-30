@@ -38,18 +38,26 @@ function formatIntent(intent) {
   }
 }
 
-
 /* ---------------------------RENDER FUNCTIONS ---------------------------*/
 function renderPlayerStats() {
   const playerNameEl = document.querySelector("#player-name");
   const playerLevelEl = document.querySelector("#player-level");
   const playerHealthEl = document.querySelector("#player-health");
+  const playerHealthTextEl = playerHealthEl.querySelector(".health-text");
+  const playerHealthFillEl = document.querySelector("#player-health-fill");
   const playerEnergyEl = document.querySelector("#player-energy");
   const playerBlockEl = document.querySelector("#player-block");
 
   playerNameEl.textContent = state.player.name;
   playerLevelEl.textContent = state.player.level;
-  playerHealthEl.textContent = `${Math.max(0, state.player.currentHealth)}/${state.player.maxHealth}`;
+
+  const currentHP = Math.max(0, state.player.currentHealth);
+  const maxHP = state.player.maxHealth;
+  playerHealthTextEl.textContent = `${currentHP}/${maxHP}`;
+
+  const healthPercent = (currentHP / maxHP) * 100;
+  playerHealthFillEl.style.width = `${healthPercent}%`;
+
   playerEnergyEl.textContent = `⚡ ${state.player.currentEnergy}/${state.player.maxEnergy}`;
   playerBlockEl.textContent = `🛡️ ${state.player.block}`;
 }
@@ -59,11 +67,20 @@ function renderMonsterStats() {
   const monsterSpriteEl = document.querySelector("#monster-sprite");
   const monsterNameEl = document.querySelector("#monster-name");
   const monsterHealthEl = document.querySelector("#monster-health");
+  const monsterHealthTextEl = monsterHealthEl.querySelector(".health-text");
+  const monsterHealthFillEl = document.querySelector("#monster-health-fill");
   const monsterBlockEl = document.querySelector("#monster-block");
 
   monsterSpriteEl.textContent = state.monster.sprite;
   monsterNameEl.textContent = state.monster.name;
-  monsterHealthEl.textContent = `${Math.max(0, state.monster.health)}/${state.monster.maxHealth}`;
+
+  const currentHP = Math.max(0, state.monster.health);
+  const maxHP = state.monster.maxHealth;
+  monsterHealthTextEl.textContent = `${currentHP}/${maxHP}`;
+
+  const healthPercent = (currentHP / maxHP) * 100;
+  monsterHealthFillEl.style.width = `${healthPercent}%`;
+
   monsterIntentEl.textContent = formatIntent(state.monster.currentIntent);
 
   // Display monster block if > 0
@@ -88,8 +105,8 @@ function renderHand() {
     cardEl.dataset.type = cardData.type;
 
     // Add status card class for special styling
-    if (cardData.type === 'status') {
-      cardEl.classList.add('status-card');
+    if (cardData.type === "status") {
+      cardEl.classList.add("status-card");
     }
 
     cardEl.innerHTML = `
@@ -120,14 +137,12 @@ function renderPhaseOverlay() {
   const subtitle = document.querySelector("#phase-subtitle");
   const button = document.querySelector("#btn-phase-action");
 
-
-
   // Reset button classes
   button.className = "phase-button";
 
   switch (state.gamePhase) {
     case "victory":
-      renderVictoryOverlay()
+      renderVictoryOverlay();
       break;
 
     case "defeat":
@@ -162,31 +177,28 @@ function renderVictoryOverlay() {
   const button = document.querySelector("#btn-victory-action");
 
   victoryOverlay.classList.remove("hidden");
-      title.textContent = "Victory!";
-      subtitle.textContent = `Level ${state.player.level} | HP: ${state.player.currentHealth}/${state.player.maxHealth}`;
-      button.textContent = "Continue";
-      button.classList.add("victory");
+  title.textContent = "Victory!";
+  subtitle.textContent = `Level ${state.player.level} | HP: ${state.player.currentHealth}/${state.player.maxHealth}`;
+  button.textContent = "Continue";
+  button.classList.add("victory");
 
-      cardsRewardRow.innerHTML = "";
+  cardsRewardRow.innerHTML = "";
 
-      const rewardCards = generateCardReward();
+  const rewardCards = generateCardReward();
 
-      rewardCards.forEach((cardData) => {
-        const cardDiv = document.createElement("div");
-        cardDiv.className = "card";
-        cardDiv.dataset.cardId = cardData.id;
-        cardDiv.dataset.type = cardData.type;
-        cardDiv.innerHTML = `
+  rewardCards.forEach((cardData) => {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "card";
+    cardDiv.dataset.cardId = cardData.id;
+    cardDiv.dataset.type = cardData.type;
+    cardDiv.innerHTML = `
           <div class="card-cost">${cardData.cost}</div>
           <div class="card-name">${cardData.name}</div>
           <div class="card-description">${cardData.description}</div>
         `;
-        cardsRewardRow.appendChild(cardDiv);
-      });
-    }
-
-
-
+    cardsRewardRow.appendChild(cardDiv);
+  });
+}
 
 /* ---------------------------INPUT BLOCKING ---------------------------*/
 function updateInputState() {
