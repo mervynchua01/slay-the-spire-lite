@@ -4,7 +4,7 @@
 
 A turn-based roguelike deck-building game inspired by Slay the Spire, built entirely with vanilla JavaScript, HTML, and CSS. This project demonstrates core game development concepts and software engineering principles without relying on frameworks or game engines.
 
-**[Live Demo](your-github-pages-link-here)** | **[Source Code](your-repo-link-here)**
+**[Live Demo]https://mervynchua01.github.io/slay-the-spire-lite/**
 
 ---
 
