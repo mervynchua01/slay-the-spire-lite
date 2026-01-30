@@ -1,17 +1,18 @@
-/*================================
-  RESET & BASE STYLES
-================================*/
-*, *::before, *::after {
+/* ---------------------------RESET & BASE STYLES ---------------------------*/
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: gray;
-  color: #eaeaea;
+  font-family: "Kreon", "Segoe UI", sans-serif;
+  color: #000000;
   min-height: 100vh;
+  background-image: url("/Users/mmbp-21/Downloads/general assembly/code/ga/projects/munchkin-lite/assets/slay-the-spire-bg.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 #app {
@@ -27,14 +28,12 @@ body {
   padding: 1rem;
 }
 
-/*================================
-  HEADER
-================================*/
+/* ---------------------------HEADER ---------------------------*/
 .game-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #16213e;
+  background-color: #484848;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -52,7 +51,7 @@ body {
 }
 
 #monster-name {
-  color: #e94560;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -80,15 +79,14 @@ body {
   opacity: 0.8;
 }
 
-/*================================
-  BATTLE AREA
-================================*/
+/* ---------------------------BATTLE AREA ---------------------------*/
 .battle-area {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   padding: 2rem;
   min-height: 300px;
+  position: relative;
 }
 
 .player-section,
@@ -100,13 +98,36 @@ body {
 }
 
 .sprite {
-  font-size: 4rem;
+  font-size: 6rem;
 }
 
+/* ---------------------------HEALTH BAR VISUALS ---------------------------*/
 .health-bar {
   color: #e94560;
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
 }
+
+.health-text {
+  font-size: 0.95rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.health-bar-container {
+  width: 100px;
+  height: 14px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: 2px solid #2d2d2d;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    0 1px 2px rgba(255, 255, 255, 0.1);
+}
+
 
 .block-value {
   color: #4a90d9;
@@ -127,14 +148,11 @@ body {
   align-items: center;
 }
 
-/*================================
-  FOOTER
-================================*/
+/* ---------------------------FOOTER ---------------------------*/
 .battle-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #16213e;
   padding: 1rem;
   border-radius: 8px;
   margin-top: 1rem;
@@ -148,10 +166,11 @@ body {
 
 .hand {
   display: flex;
-  gap: 0.5rem;
   justify-content: center;
+  align-items: flex-end;
   flex: 1;
-  min-height: 120px;
+  min-height: 200px;
+  position: relative;
 }
 
 #btn-end-turn {
@@ -169,19 +188,210 @@ body {
   opacity: 0.8;
 }
 
-/*================================
-  CARD PILES
-================================*/
-.card-piles {
+/* ---------------------------CARD STYLES ---------------------------*/
+
+.card {
+  width: 120px;
+  height: 180px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: center;
   display: flex;
-  justify-content: space-between;
-  padding: 1rem;
+  flex-direction: column;
+  position: relative;
+  transition:
+    transform 0.15s ease,
+    z-index 0s;
+  /* border: 3px solid #1a1a2e; */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin: 0 -15px;
 }
 
-.pile {
-  background-color: #16213e;
-  padding: 0.5rem 1rem;
+.card[data-type="attack"] {
+  background: red;
+}
+
+.card[data-type="skill"] {
+  background: green;
+}
+
+.card-cost {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background: orange;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: 3px solid #dc0202;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.card-art {
+  flex: 1;
+  margin: 12px 8px 4px 8px;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  font-size: 0.9rem;
-  color: #a0a0a0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  min-height: 60px;
+}
+
+.card-name {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #ffeaa7;
+  font-size: 0.85rem;
+  font-weight: bold;
+  padding: 4px 6px;
+  margin: 0 6px;
+  border-radius: 3px;
+}
+
+.card-description {
+  font-size: 0.7rem;
+  color: #ecf0f1;
+  font-weight: normal;
+  line-height: 1.2;
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+/* Card type label at bottom */
+.card-type {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #bdc3c7;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px;
+  border-radius: 0 0 5px 5px;
+}
+
+/* Hover effect - lift card up */
+/* .card:hover {
+  transform: translateY(-40px) scale(1.05);
+  z-index: 100;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
+} */
+
+/* ---------------------------VICTORY REWARD CARDS ---------------------------*/
+#cards-reward {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5rem;
+  margin: 2rem 0;
+}
+
+
+/* ---------------------------STATUS CARDS ---------------------------*/
+.card.status-card {
+  background: linear-gradient(135deg, #2d1b2e 0%, #1a1a1a 100%);
+  border: 2px solid #8b008b;
+  box-shadow: 0 0 10px rgba(139, 0, 139, 0.5);
+}
+
+.card.status-card .card-name {
+  color: #ff1493;
+}
+
+.card.status-card .card-description {
+  color: #ff69b4;
+}
+
+.card.status-card .card-cost {
+  background: #8b008b;
+  border-color: #4b0082;
+}
+
+/* ---------------------------UTILITY CLASSES ---------------------------*/
+.hidden {
+  display: none !important;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---------------------------PHASE OVERLAY ---------------------------*/
+.phase-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.phase-message {
+  text-align: center;
+  padding: 3rem;
+  background-color: #16213e;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+}
+
+#phase-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+#phase-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #eaeaea;
+}
+
+.phase-button {
+  background-color: #4a90d9;
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.phase-button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.phase-button.victory {
+  background-color: #fbbf24;
+  color: #000;
+}
+
+.phase-button.defeat {
+  background-color: #e94560;
+}
+
+.phase-button.game-won {
+  background-color: #4e9f3d;
 }

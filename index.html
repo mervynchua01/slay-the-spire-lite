@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kreon:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>Slay the Spire Lite</title>
     <link rel="stylesheet" href="css/style.css" />
     <script type="module" src="js/main.js"></script>
@@ -11,7 +14,6 @@
   <body>
     <div id="app">
       <div id="combat-screen" class="screen">
-
         <header class="game-header">
           <div class="header-stats">
             <span id="player-name">Player Name</span>
@@ -24,17 +26,46 @@
 
         <main class="battle-area">
           <section class="player-section">
-            <div class="sprite" id="player-sprite">🧙</div>
+            <div class="sprite" id="player-sprite">♟️</div>
             <div class="player-stats-row">
               <div class="block-value" id="player-block">🛡️ 0</div>
-              <div class="health-bar" id="player-health">3/3</div>
+              <div class="health-bar" id="player-health">
+                <span class="health-text">80/80</span>
+                <div class="health-bar-container">
+                  <div class="health-bar-fill" id="player-health-fill"></div>
+                </div>
+              </div>
             </div>
           </section>
 
+          <div id="phase-overlay" class="phase-overlay hidden">
+            <div class="phase-message">
+              <h2 id="phase-title"></h2>
+              <p id="phase-subtitle"></p>
+              <button id="btn-phase-action" class="phase-button"></button>
+            </div>
+          </div>
+
+          <div id="victory-overlay" class="phase-overlay hidden">
+            <div class="victory-message">
+              <h2 id="victory-title"></h2>
+              <p id="victory-subtitle"></p>
+              <div id="cards-reward"></div>
+              <button id="btn-victory-action" class="victory-button"></button>
+            </div>
+          </div>
+
           <section class="monster-section">
-            <div class="intent" id="monster-intent">🗡️ 6</div>
-            <div class="sprite" id="monster-sprite">👹</div>
-            <div class="health-bar" id="monster-health">20/20</div>
+            <div class="intent" id="monster-intent"></div>
+            <div class="sprite" id="monster-sprite"></div>
+            <div class="block-value" id="monster-block" style="display: none;">🛡️ 0</div>
+            <div class="health-bar" id="monster-health">
+              <span class="health-text"></span>
+              <div class="health-bar-container">
+                <div class="health-bar-fill" id="monster-health-fill"></div>
+              </div>
+            </div>
+            
           </section>
         </main>
 
@@ -48,7 +79,6 @@
           <div class="pile" id="draw-pile">Draw: 10</div>
           <div class="pile" id="discard-pile">Discard: 0</div>
         </div>
-
       </div>
     </div>
   </body>
