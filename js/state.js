@@ -38,6 +38,10 @@ const state = {
   discardPile: [],
   currentTurn: "player",
   gamePhase: "combat", // 'combat', 'victory', 'defeat', 'gameWon'
+  monsterJustTookDamage: false,
+  monsterDamageAmount: 0,
+  playerJustTookDamage: false,
+  playerDamageAmount: 0,
 };
 
 /* ---------------------------UTILITY FUNCTIONS ---------------------------*/

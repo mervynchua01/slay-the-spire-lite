@@ -526,7 +526,8 @@ function playCard(handIndex, target = state.monster) {
       target.block -= blocked;
     }
     target.health -= actualDamage;
-
+    if (actualDamage > 0) state.monsterJustTookDamage = true;
+    state.monsterDamageAmount = actualDamage;
     console.log(
       `Dealt ${cardData.damage} damage (${blocked} blocked, ${actualDamage} actual)`,
     );

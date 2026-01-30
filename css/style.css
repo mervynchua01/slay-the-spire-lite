@@ -9,14 +9,14 @@ body {
   font-family: "Kreon", "Segoe UI", sans-serif;
   color: #000000;
   min-height: 100vh;
-  background-image: url("/Users/mmbp-21/Downloads/general assembly/code/ga/projects/munchkin-lite/assets/slay-the-spire-bg.png");
+  background-image: url("../assets/slay-the-spire-combat.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 #app {
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto;
   min-height: 100vh;
 }
@@ -28,12 +28,16 @@ body {
   padding: 1rem;
 }
 
+
+
 /* ---------------------------HEADER ---------------------------*/
 .game-header {
+  background: linear-gradient(-90deg, #3d3d3d 0%, #2d2d2d 50%, #1a1a1a 100%);
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #484848;
+  background-color: #3e494b;
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
@@ -83,9 +87,10 @@ body {
 .battle-area {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   padding: 2rem;
   min-height: 300px;
+  flex: 1;
   position: relative;
 }
 
@@ -97,9 +102,48 @@ body {
   gap: 0.5rem;
 }
 
-.sprite {
-  font-size: 6rem;
+#player-sprite {
+  display: block;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
 }
+
+.sprite {
+  font-size: 15rem;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.sprite.shake,
+.sprite-wrapper.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.sprite-wrapper { 
+  position: relative; 
+  display: inline-block; 
+}
+
+.damage-number {
+  position: absolute; 
+  left: 50%; 
+  top: 50%; 
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  font-size: 30px;
+  font-weight: bold;
+  color: white;
+  pointer-events: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
 
 /* ---------------------------HEALTH BAR VISUALS ---------------------------*/
 .health-bar {
@@ -113,7 +157,7 @@ body {
 
 .health-text {
   position: absolute;
-  font-size: 0.65rem;
+  font-size: 0.95rem;
   color: white;
   font-weight: bold;
   z-index: 1;
@@ -124,11 +168,11 @@ body {
 }
 
 .health-bar-container {
-  width: 100px;
-  height: 14px;
+  width: 120px;
+  height: 15px;
   background-color: rgba(0, 0, 0, 0.6);
   border: 2px solid #2d2d2d;
-  border-radius: 7px;
+  border-radius: 12px;
   overflow: hidden;
   position: relative;
   box-shadow:
@@ -145,7 +189,11 @@ body {
 
 
 .block-value {
-  color: #4a90d9;
+  background-color: #4a90d9;
+  color: white;
+  padding: 0.2rem 0.35rem;
+  border-radius: 12px;
+  font-size: 0.7rem;
   font-weight: bold;
 }
 
@@ -179,6 +227,19 @@ body {
   color: #fbbf24;
   font-weight: bold;
   font-size: 1.2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.2);
+  border: 3px solid #fbbf24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1.2;
+  font-style: normal;
+  transform: none;
 }
 
 .hand {
@@ -219,7 +280,6 @@ body {
   transition:
     transform 0.15s ease,
     z-index 0s;
-  /* border: 3px solid #1a1a2e; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   margin: 0 -15px;
 }
@@ -236,20 +296,20 @@ body {
   position: absolute;
   top: -8px;
   left: -8px;
-  background: orange;
-  color: white;
   width: 32px;
   height: 32px;
   border-radius: 50%;
+  background: #fbbf24;
+  color: #1a1a1a;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
   font-weight: bold;
-  border: 3px solid #dc0202;
+  border: 2px solid #d4a012;
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.4),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
   z-index: 1;
 }
 
@@ -296,20 +356,26 @@ body {
 }
 
 /* Hover effect - lift card up */
-/* .card:hover {
+.card:hover {
   transform: translateY(-40px) scale(1.05);
   z-index: 100;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-} */
+}
 
 /* ---------------------------VICTORY REWARD CARDS ---------------------------*/
 #cards-reward {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  align-items: center;
-  gap: 5rem;
+  align-items: flex-end;
+  gap: 4rem;
   margin: 2rem 0;
+}
+
+#cards-reward .card:hover {
+  transform: none;
+  z-index: 1;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -367,7 +433,24 @@ body {
   max-width: 500px;
 }
 
+
+.victory-message {
+  text-align: center;
+  padding: 3rem;
+  background-color: #16213e;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+}
+
 #phase-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #fbbf24;
+  text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+#victory-title {
   font-size: 3rem;
   margin-bottom: 1rem;
   color: #fbbf24;
@@ -376,6 +459,18 @@ body {
 
 #phase-subtitle {
   font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #eaeaea;
+}
+
+#victory-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #eaeaea;
+}
+
+#victory-subsubtitle {
+  font-size: 0.8rem;
   margin-bottom: 2rem;
   color: #eaeaea;
 }
@@ -411,4 +506,24 @@ body {
 
 .phase-button.game-won {
   background-color: #4e9f3d;
+}
+
+#btn-victory-action {
+  background-color: #4a90d9;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+#btn-victory-action:hover {
+  opacity: 0.8
+}
+
+#btn-victory-action:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.2);
 }

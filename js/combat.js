@@ -101,7 +101,7 @@ const MONSTER_DATA = {
   },
 
   spike_slime_large: {
-    sprite: "",
+    sprite: "🦠",
     name: "Spike Slime (L)",
     health: 64,
     maxHealth: 64,
@@ -912,6 +912,8 @@ function monsterAttack(monster, intent) {
 
   state.player.block -= blocked;
   state.player.currentHealth -= actualDamage;
+  if (actualDamage > 0) state.playerJustTookDamage = true;
+  state.playerDamageAmount = actualDamage;
 
   console.log(`${monster.name} attacks for ${damage}! Blocked ${blocked}, took ${actualDamage} damage.`);
 

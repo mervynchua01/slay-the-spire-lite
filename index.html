@@ -12,28 +12,32 @@
   </head>
 
   <body>
-    <div id="app">
-      <div id="combat-screen" class="screen">
-        <header class="game-header">
-          <div class="header-stats">
+    <header class="game-header">
+      <div class="header-stats">
             <span id="player-name">Player Name</span>
             <span class="stats-label">Level:</span>
             <span class="stats-value" id="player-level">1</span>
           </div>
           <span id="monster-name">Monster Name</span>
           <button id="btn-abandon">Abandon Run</button>
-        </header>
+    </header>
+    <div id="app">
+      <div id="combat-screen" class="screen">
+          
 
         <main class="battle-area">
           <section class="player-section">
-            <div class="sprite" id="player-sprite">♟️</div>
+            <div class="sprite-wrapper" id="player-sprite-wrapper">
+              <img id="player-sprite" class="sprite sprite-image" src="assets/ironclad.png" alt="Player">
+            </div>
             <div class="player-stats-row">
-              <div class="block-value" id="player-block">🛡️ 0</div>
+              
               <div class="health-bar" id="player-health">
                 <div class="health-bar-container">
                   <span class="health-text">80/80</span>
                   <div class="health-bar-fill" id="player-health-fill"></div>
                 </div>
+              <div class="block-value" id="player-block">🛡️ 0</div>
               </div>
             </div>
           </section>
@@ -50,6 +54,7 @@
             <div class="victory-message">
               <h2 id="victory-title"></h2>
               <p id="victory-subtitle"></p>
+              <p id="victory-subsubtitle"></p>
               <div id="cards-reward"></div>
               <button id="btn-victory-action" class="victory-button"></button>
             </div>
@@ -57,7 +62,7 @@
 
           <section class="monster-section">
             <div class="intent" id="monster-intent"></div>
-            <div class="sprite" id="monster-sprite"></div>
+            <div class="sprite-wrapper" id="monster-sprite-wrapper"><div class="sprite" id="monster-sprite"></div></div>
             <div class="block-value" id="monster-block" style="display: none;">🛡️ 0</div>
             <div class="health-bar" id="monster-health">
               <div class="health-bar-container">
@@ -70,7 +75,7 @@
         </main>
 
         <footer class="battle-footer">
-          <div class="energy-value" id="player-energy">⚡ 3/3</div>
+          <div class="energy-value" id="player-energy">3/3</div>
           <div class="hand" id="hand"></div>
           <button id="btn-end-turn">End Turn</button>
         </footer>

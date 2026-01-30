@@ -9,7 +9,7 @@ import {
   isMonsterDead,
   handleMonsterDefeated,
 } from "./combat.js";
-import { renderGameState } from "./ui.js";
+import { renderGameState, triggerSpriteShake, showDamageNumber } from "./ui.js";
 
 /* ---------------------------GAME INITIALIZATION ---------------------------*/
 function initGame() {
@@ -37,6 +37,13 @@ function handleCardClick(event) {
   const success = playCard(cardIndex);
 
   if (!success) return;
+
+    if (state.monsterJustTookDamage) {
+      triggerSpriteShake("monster");
+      showDamageNumber("monster", state.monsterDamageAmount);
+      state.monsterJustTookDamage = false;
+      state.monsterDamageAmount = 0;
+    }
 
   // Check if monster died from this card
   if (isMonsterDead()) {
@@ -72,6 +79,13 @@ function handleEndTurn() {
 
   // End player turn (this triggers enemy turn automatically)
   endPlayerTurn();
+
+    if (state.playerJustTookDamage) {
+      triggerSpriteShake("player");
+      showDamageNumber("player", state.playerDamageAmount);
+      state.playerJustTookDamage = false;
+      state.playerDamageAmount = 0;
+    }
 
   // Re-render after enemy turn completes
   renderGameState();

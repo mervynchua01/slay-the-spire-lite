@@ -58,8 +58,8 @@ function renderPlayerStats() {
   const healthPercent = (currentHP / maxHP) * 100;
   playerHealthFillEl.style.width = `${healthPercent}%`;
 
-  playerEnergyEl.textContent = `⚡ ${state.player.currentEnergy}/${state.player.maxEnergy}`;
-  playerBlockEl.textContent = `🛡️ ${state.player.block}`;
+  playerEnergyEl.innerHTML = `<span class="energy-value-inner">⚡ ${state.player.currentEnergy}/${state.player.maxEnergy}</span>`;
+  playerBlockEl.innerHTML = `<img src="assets/Icon_Block.png" alt="Block" style="width: 16px; height: 16px; vertical-align: middle;"> ${state.player.block}`;
 }
 
 function renderMonsterStats() {
@@ -85,7 +85,7 @@ function renderMonsterStats() {
 
   // Display monster block if > 0
   if (state.monster.block > 0) {
-    monsterBlockEl.textContent = `🛡️ ${state.monster.block}`;
+    monsterBlockEl.innerHTML = `<img src="assets/Icon_Block.png" alt="Block" style="width: 16px; height: 16px; vertical-align: middle;"> ${state.monster.block}`;
     monsterBlockEl.style.display = "block";
   } else {
     monsterBlockEl.style.display = "none";
@@ -174,12 +174,14 @@ function renderVictoryOverlay() {
   const cardsRewardRow = document.querySelector("#cards-reward");
   const title = document.querySelector("#victory-title");
   const subtitle = document.querySelector("#victory-subtitle");
+  const subsubtitle = document.querySelector("#victory-subsubtitle");
   const button = document.querySelector("#btn-victory-action");
 
   victoryOverlay.classList.remove("hidden");
   title.textContent = "Victory!";
   subtitle.textContent = `Level ${state.player.level} | HP: ${state.player.currentHealth}/${state.player.maxHealth}`;
-  button.textContent = "Continue";
+  subsubtitle.textContent = 'Choose a card reward!';
+  button.textContent = "Skip rewards";
   button.classList.add("victory");
 
   cardsRewardRow.innerHTML = "";
@@ -191,11 +193,16 @@ function renderVictoryOverlay() {
     cardDiv.className = "card";
     cardDiv.dataset.cardId = cardData.id;
     cardDiv.dataset.type = cardData.type;
+    if (cardData.type === "status") {
+      cardDiv.classList.add("status-card");
+    }
     cardDiv.innerHTML = `
-          <div class="card-cost">${cardData.cost}</div>
-          <div class="card-name">${cardData.name}</div>
-          <div class="card-description">${cardData.description}</div>
-        `;
+      <div class="card-cost">${cardData.cost}</div>
+      <div class="card-name">${cardData.name}</div>
+      <div class="card-art">${getCardIcon(cardData.id)}</div>
+      <div class="card-type">${cardData.type}</div>
+      <div class="card-description">${cardData.description}</div>
+    `;
     cardsRewardRow.appendChild(cardDiv);
   });
 }
@@ -217,6 +224,36 @@ function updateInputState() {
   }
 }
 
+/* ---------------------------SPRITE SHAKE ---------------------------*/
+const SHAKE_DURATION_MS = 400;
+
+function triggerSpriteShake(which) {
+  const selector = which === "player" ? "#player-sprite-wrapper" : "#monster-sprite-wrapper";
+  const el = document.querySelector(selector);
+  if (!el) return;
+  el.classList.add("shake");
+  setTimeout(() => el.classList.remove("shake"), SHAKE_DURATION_MS);
+}
+
+const DAMAGE_NUMBER_DURATION_MS = 800;
+
+function showDamageNumber(which, amount) {
+  const wrapperId = which === "player" ? "#player-sprite-wrapper" : "#monster-sprite-wrapper";
+  const wrapper = document.querySelector(wrapperId);
+  if (!wrapper || amount <= 0) return;
+
+  const el = document.createElement("div");
+  el.className = "damage-number";
+  el.textContent = amount;
+  wrapper.appendChild(el);
+
+  setTimeout(() => {
+    el.remove();
+  }, DAMAGE_NUMBER_DURATION_MS);
+}
+
+
+
 /* ---------------------------MASTER RENDER ---------------------------*/
 function renderCombatScreen() {
   renderPlayerStats();
@@ -236,4 +273,9 @@ function renderGameState() {
 }
 
 /* ---------------------------EXPORTS ---------------------------*/
-export { renderCombatScreen, renderGameState };
+export {
+  renderCombatScreen,
+  renderGameState,
+  triggerSpriteShake,
+  showDamageNumber,
+};
