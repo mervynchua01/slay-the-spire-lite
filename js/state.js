@@ -33,7 +33,6 @@ const state = {
     block: 0,
   },
   monster: null,
-  /** Current run's deck (starter + rewards). Reset to STARTER_DECK copy on new run. */
   playerDeck: [...STARTER_DECK],
   drawPile: [],
   hand: [],
