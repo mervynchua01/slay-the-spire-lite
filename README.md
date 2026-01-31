@@ -89,9 +89,10 @@ Planned additions include involving multiple monsters per battle (e.g. slimes or
 
 ---
 
-## License
+## Attributions
 
-MIT License - feel free to fork and build upon this project.
+* [Slay the Spire Wiki Database](https://slay-the-spire.fandom.com/wiki/Slay_the_Spire_Wiki)
+
 
 ---
 
