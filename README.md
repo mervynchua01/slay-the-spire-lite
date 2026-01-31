@@ -4,7 +4,7 @@
 
 A turn-based roguelike deck-building game inspired by Slay the Spire, built entirely with vanilla JavaScript, HTML, and CSS. This project demonstrates core game development concepts and software engineering principles without relying on frameworks or game engines.
 
-**[Live Demo]https://mervynchua01.github.io/slay-the-spire-lite/**
+**[Live Demo](https://mervynchua01.github.io/slay-the-spire-lite/)**
 
 ---
 
@@ -81,7 +81,7 @@ This project reinforced several key software engineering concepts including stat
 
 ## Future Enhancements
 
-Planned additions include additional card types with special effects like Exhaust, buffs, and debuffs. A monster intent preview system would telegraph enemy actions for deeper strategic planning. The Level 10 boss battle will feature unique mechanics and multi-phase encounters. Visual improvements include sprite animations for attacks and damage effects. Gameplay depth expands with multiple monster encounters and an extended card pool with meaningful synergies between card types.
+Planned additions include involving multiple monsters per battle (e.g. slimes or louse has a random encounter with multiple units), including more special effects such as buffs, and debuffs. Visual improvemants and drag handling animations.
 
 ---
 
