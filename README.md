@@ -20,6 +20,10 @@ The game includes a turn-based card combat system with energy management, proced
 
 ---
 
+![Game Screenshot](https://i.imgur.com/2K3ImK9.jpeg)
+![Game Screenshot](https://i.imgur.com/0ULVHxx.jpeg)
+
+
 ## Technical Implementation
 
 ### Architecture & Design Patterns
