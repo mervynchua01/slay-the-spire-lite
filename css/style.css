@@ -274,7 +274,7 @@ body {
 
 #discard-pile {
   border-color: rgba(233, 69, 96, 0.5);
-  color: #fca5a5;
+  color: #ff1515;
 }
 
 /* ---------------------------CARD STYLES ---------------------------*/
@@ -339,7 +339,7 @@ body {
 
 .card-name {
   background-color: rgba(0, 0, 0, 0.6);
-  color: #ffeaa7;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: bold;
   padding: 5px 6px;
@@ -450,14 +450,12 @@ body {
   font-size: 3rem;
   margin-bottom: 1rem;
   color: #fbbf24;
-  text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
 }
 
 #victory-title {
   font-size: 3rem;
   margin-bottom: 1rem;
   color: #fbbf24;
-  text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
 }
 
 #phase-subtitle {
