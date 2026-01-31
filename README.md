@@ -18,6 +18,27 @@ This project explores the technical challenges of building a complex, stateful g
 
 The game includes a turn-based card combat system with energy management, procedural generation of encounters and card rewards, and deck-building mechanics with strategic card selection. Players experience progressive difficulty scaling across 10 levels while the system maintains state persistence throughout game sessions. The codebase uses a modular architecture designed for maintainability and scalability.
 
+## Slay the Spire - Quick How to Play Guide
+Core Concept
+
+* Deck-building roguelike where you climb a spire, fight monsters, and build your card deck as you go
+* Every run is different - when you die, you start over from the beginning
+* Goal: Reach to level 10
+
+Basic Gameplay Loop
+
+* Choose your path on the map after each fight
+* Combat: Turn-based using cards from your deck
+* Draw 5 cards per turn (usually)
+* Start with 3 energy per turn to play cards 
+* Attack cards deal damage, Skill cards do other stuff
+* After fights: Pick 1 new card to add to your deck (or skip it)
+
+Key Components to Know
+* Card rarities: Common, Uncommon, and Rare cards - rarity affects when/where they show up as rewards
+* Monster scaling: Enemies get tougher as you progress to higher floors/acts
+* Monster intent: Enemies have patterns that wil be displayed on the Monsters
+
 ---
 
 ![Game Screenshot](https://i.imgur.com/2K3ImK9.jpeg)
