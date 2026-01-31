@@ -24,7 +24,7 @@ const STARTER_DECK = [
 /* ---------------------------GAME STATE ---------------------------*/
 const state = {
   player: {
-    name: "Player",
+    name: "Ironclad",
     level: 1,
     currentHealth: STARTING_HEALTH,
     maxHealth: STARTING_MAX_HEALTH,

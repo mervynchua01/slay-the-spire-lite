@@ -7,7 +7,7 @@
 
 body {
   font-family: "Kreon", "Segoe UI", sans-serif;
-  color: #000000;
+  color: #ffffff;
   min-height: 100vh;
   background-image: url("../assets/slay-the-spire-combat.png");
   background-size: cover;
@@ -51,7 +51,7 @@ body {
 
 #player-name {
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 
 #monster-name {
