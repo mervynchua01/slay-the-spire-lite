@@ -691,16 +691,10 @@ const ENCOUNTER_POOLS = {
     "sneaky_gremlin",
     "gremlin_wizard",
   ],
-  normal: [
-    "blue_slaver",
-    "red_slaver",
-    "fungi_beast",
-    "looter",
-  ],
+  normal: ["blue_slaver", "red_slaver", "fungi_beast", "looter"],
   elites: ["gremlin_nob", "lagavulin", "sentries"],
   bosses: ["slime_boss", "hexaghost", "the_guardian"],
 };
-
 
 /* ---------------------------MONSTER FUNCTIONS ---------------------------*/
 function getMonsterDifficulty(currentLevel) {
@@ -720,15 +714,14 @@ function getMonsterDifficulty(currentLevel) {
 }
 
 function spawnMonster(difficulty) {
-    const pool = ENCOUNTER_POOLS[difficulty];
-    const randomGenerator = pool[Math.floor(Math.random() * pool.length)];
-    const monsterTemplate = MONSTER_DATA[randomGenerator];
-    const monster = JSON.parse(JSON.stringify(monsterTemplate));
+  const pool = ENCOUNTER_POOLS[difficulty];
+  const randomGenerator = pool[Math.floor(Math.random() * pool.length)];
+  const monsterTemplate = MONSTER_DATA[randomGenerator];
+  const monster = JSON.parse(JSON.stringify(monsterTemplate));
+  monster.currentIntent = monsterIntent(monster);
 
-    monster.currentIntent = monsterIntent(monster);
-
-    return monster;
-  }
+  return monster;
+}
 
 function monsterIntent(monster) {
   const roll = Math.random();
@@ -747,20 +740,19 @@ function executeIntent(monster) {
   const intent = monster.currentIntent;
 
   switch (intent.type) {
-    case 'attack':
+    case "attack":
       monsterAttack(monster, intent);
       break;
 
-    case 'debuff':
+    case "debuff":
       applyMonsterDebuff(monster, intent);
       break;
 
-    case 'buff':
+    case "buff":
       applyMonsterBuff(monster, intent);
       break;
   }
 }
-
 
 function monsterAttack(monster, intent) {
   const damage = intent.value;
@@ -772,7 +764,9 @@ function monsterAttack(monster, intent) {
   if (actualDamage > 0) state.playerJustTookDamage = true;
   state.playerDamageAmount = actualDamage;
 
-  console.log(`${monster.name} attacks for ${damage}! Blocked ${blocked}, took ${actualDamage} damage.`);
+  console.log(
+    `${monster.name} attacks for ${damage}! Blocked ${blocked}, took ${actualDamage} damage.`,
+  );
 
   if (intent.blockGain) {
     monster.block += intent.blockGain;
@@ -781,24 +775,25 @@ function monsterAttack(monster, intent) {
 
   if (intent.addCard) {
     state.discardPile.push(...Array(intent.addCardAmount).fill(intent.addCard));
-    console.log(`  Added ${intent.addCardAmount} ${intent.addCard} to discard!`);
+    console.log(
+      `  Added ${intent.addCardAmount} ${intent.addCard} to discard!`,
+    );
   }
 }
 
 function applyMonsterDebuff(monster, intent) {
   if (intent.addCard) {
-  for (let i = 0; i < intent.addCardAmount; i++) {
-    state.discardPile.push(intent.addCard);
+    for (let i = 0; i < intent.addCardAmount; i++) {
+      state.discardPile.push(intent.addCard);
+    }
   }
-}
 }
 
 function applyMonsterBuff(monster, intent) {
   if (intent.blockGain) {
-  monster.block += intent.blockGain;
+    monster.block += intent.blockGain;
   }
 }
-
 
 /* ---------------------------WIN/LOSE CHECKS ---------------------------*/
 function isGameWon() {
@@ -856,8 +851,6 @@ function handleMonsterDefeated() {
     console.log("Monster defeated! Click continue to proceed.");
   }
 }
-
-
 
 /* ---------------------------EXPORTS ---------------------------*/
 export {

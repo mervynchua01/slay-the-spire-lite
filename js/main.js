@@ -36,12 +36,12 @@ function handleCardClick(event) {
 
   if (!success) return;
 
-    if (state.monsterJustTookDamage) {
-      triggerSpriteShake("monster");
-      showDamageNumber("monster", state.monsterDamageAmount);
-      state.monsterJustTookDamage = false;
-      state.monsterDamageAmount = 0;
-    }
+  if (state.monsterJustTookDamage) {
+    triggerSpriteShake("monster");
+    showDamageNumber("monster", state.monsterDamageAmount);
+    state.monsterJustTookDamage = false;
+    state.monsterDamageAmount = 0;
+  }
 
   if (isMonsterDead()) {
     handleMonsterDefeated();
@@ -81,10 +81,10 @@ function handleEndTurn() {
 
   endPlayerTurn();
 
-    if (state.playerJustTookDamage) {
-      triggerSpriteShake("player");
-      showDamageNumber("player", state.playerDamageAmount);
-      state.playerJustTookDamage = false;
+  if (state.playerJustTookDamage) {
+    triggerSpriteShake("player");
+    showDamageNumber("player", state.playerDamageAmount);
+    state.playerJustTookDamage = false;
     state.playerDamageAmount = 0;
   }
 
@@ -92,14 +92,13 @@ function handleEndTurn() {
 }
 
 function handleAbandonRun() {
-  const confirmed = confirm("Are you sure you want to abandon this run?");
 
-  if (confirmed) {
-    console.log("=== RUN ABANDONED ===");
-    resetGame();
-    initGame();
+    state.gamePhase = "defeat";
+    renderGameState();
+    // resetGame();
+    // initGame();
   }
-}
+
 
 function handlePhaseAction() {
   console.log(`=== PHASE ACTION: ${state.gamePhase} ===`);

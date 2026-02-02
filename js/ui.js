@@ -270,6 +270,7 @@ function renderGameState() {
 export {
   renderCombatScreen,
   renderGameState,
+  updateInputState,
   triggerSpriteShake,
   showDamageNumber,
 };
